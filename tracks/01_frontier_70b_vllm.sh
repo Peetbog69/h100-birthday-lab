@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MODEL="${1:-NousResearch/Hermes-3-Llama-3.1-70B-FP8}"
+MODEL="${1:-NousResearch/Arete-27B}"
 PORT="${2:-8000}"
 
 export HF_HOME=/workspace/hf_cache

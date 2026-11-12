@@ -31,10 +31,10 @@ Every minute an H100 is booted costs ~`$0.04`. All scripts, model configs, SSH k
 
 ## 🧪 The 3 Birthday Playbook Tracks
 
-### Track 1 — Private 70B Frontier Brain (`tracks/01_frontier_70b_vllm.sh`)
+### Track 1 — Private Frontier Brain (`tracks/01_frontier_70b_vllm.sh`)
 - Downloads weights at 10 Gbps (`HF_HUB_ENABLE_HF_TRANSFER=1`) and serves an OpenAI-compatible `/v1/chat/completions` endpoint on the H100:
-  - **Option A:** `NousResearch/Hermes-3-Llama-3.1-70B-FP8` (or latest Hermes 70B)
-  - **Option B:** `Qwen/Qwen2.5-72B-Instruct-AWQ`
+  - **Default (#1 Pick):** `NousResearch/Arete-27B` *(Nous's brand-new Nov 6 post-train of `Qwen/Qwen3.8-27B` taught by `Inkling` — fits in full unquantized `BF16` at ~54GB VRAM on an 80GB H100 with 26GB left for 64k KV cache, and isn't even on the Nous API yet!)*
+  - **Option B:** `NousResearch/Hermes-4-70B-FP8`
   - **Option C:** Uncensored creative / roleplay 70B (`EVA-Qwen2.5-72B` / `Magnum-v4-72B`)
 - Nimbo connects directly from `amp2` so you can chat with a 70B model running on your own dedicated H100 right from Telegram or a private `ampersand.foo` sandbox page.
 
