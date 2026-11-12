@@ -71,7 +71,24 @@ Running George purely as an interactive chat bot meant key material could linger
 
 ---
 
-## 4. Pillar III — What We Benchmark on the H100 Birthday Pod (`Arete-27B`)
+## 4. Pillar III — `ampersand.foo` 2.0 Website Remake (Staged Preview + Repo Parity)
+
+### Why the Site Needs an Architectural Pass
+- Production (`/var/www/ampersand.foo/` on `vultr-1`) and the git repo (`Peetbog69/ampersand-site`) have diverged over weeks of live edits and mini-site additions (`/butter/`, `/stagehands/`, `/salad/`, `/llama/`, `/screw/`).
+- The front door (`index.html`, `how.html`, `transparency.html`) predates **Sovereign & Stagehands v1.0.0**, the Two-Door Bouncer, and the current estate architecture.
+
+### Remake Rules (Zero Disruption to Live Checkout/Onboarding)
+1. **Stage at a Preview Slug First (`https://ampersand.foo/v2/`):**
+   - Never overwrite live `/var/www/ampersand.foo/index.html` or touch `/api/checkout` (`127.0.0.1:8090`) / `/api/onboarding` (`127.0.0.1:8089`) while designing.
+   - Build and iterate at `/v2/` (with mobile `390px` viewport verification) until Tyler calls cut.
+2. **House Aesthetic & Live Truth:**
+   - Warm off-white paper ground, woodblock black rules, tactile typography, zero generic dark-mode AI gradient slop — backed by real, verifiable numbers that close to the exact digit.
+3. **Canonical Git Mirror Sync:**
+   - Once `/v2/` is promoted to `/`, snapshot `/root/backups/ampersand-site-pre-v2.tar.gz` and bring `Peetbog69/ampersand-site` back to 1:1 byte parity with production.
+
+---
+
+## 5. Pillar IV — What We Benchmark on the H100 Birthday Pod (`Arete-27B`)
 
 During the Birthday Lab window (`tracks/02_stagehands_local_iron.sh` + architecture bench):
 1. **Stagehands Local-Iron Worker Bench:** Verify `Arete-27B` (`http://127.0.0.1:18000/v1` over SSH tunnel) executing `delegate_task` (`scout` / `briefer` / `code_monkey`) at zero per-token API cost.
