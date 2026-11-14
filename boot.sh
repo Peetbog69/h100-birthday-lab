@@ -1,20 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "=== [🎂 H100 Birthday Lab Bootstrap] ==="
+echo "=== [🎂 H200 / H100 Birthday Lab Bootstrap] ==="
 date
 nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
 
 mkdir -p ~/.ssh /workspace/outputs /workspace/hf_cache
 chmod 700 ~/.ssh
 
-# 1. Disk Preflight Guard (>=60 GB required on /workspace for 50.98 GB Arete-27B weights)
+# 1. Disk Preflight Guard (>=60 GB for Arete-27B; >=160 GB recommended for Hermes 3 70B BF16)
 FREE_GB=$(df -BG /workspace | awk 'NR==2 {gsub("G","",$4); print $4}')
 echo "[DISK] /workspace free space: ${FREE_GB} GB"
 if [ "${FREE_GB:-0}" -lt 60 ]; then
-  echo "ERROR: /workspace only has ${FREE_GB} GB free! Need >= 60 GB for NousResearch/Arete-27B (50.98 GB)."
-  echo "Action: Set RunPod Volume Disk to 100 GB before downloading weights."
+  echo "ERROR: /workspace only has ${FREE_GB} GB free! Need >= 60 GB for Arete-27B (50.98 GB) or >= 160 GB for Hermes 3 70B."
+  echo "Action: Set RunPod Volume Disk to 150-200 GB before launching."
   exit 1
+fi
+if [ "${FREE_GB:-0}" -lt 160 ]; then
+  echo "[DISK NOTE] ${FREE_GB} GB is plenty for Arete-27B (51 GB) or Hermes-3-70B-FP8 (75 GB)."
+  echo "            If pulling Hermes 3 70B in native BF16 (140 GB), ensure volume disk is >= 200 GB."
 fi
 
 # 2. Authorize amp2 (Nimbo) SSH key if not already present
